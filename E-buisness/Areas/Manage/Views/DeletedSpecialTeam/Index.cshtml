@@ -1,0 +1,63 @@
+﻿@model PaginatedList<SpecialTeam>
+@{
+    int count = (Model.ActivePage - 1) * 2;
+}
+
+<div class="container">
+    <h2>~Deleted Special Team/Table</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">ID</th>
+                <th scope="col">Image</th>
+                <th scope="col">Fullname</th>
+                <th scope="col">Position</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (SpecialTeam teamMember in Model)
+            {
+                count++;
+                <tr>
+                    <th scope="row">@count</th>
+                    <td>@teamMember.Id</td>
+                    <td>
+                        <div style="width:120px">
+
+                            <img style="max-width:100%" src="~/uploads/team/@teamMember.ImageName" alt="">
+                        </div>
+                    </td>
+                    <td>@teamMember.Fullname</td>
+                    <td>@teamMember.Position.Name</td>
+                    <td>
+                        <a asp-action="restore" asp-controller="deletedspecialteam" asp-route-id="@teamMember.Id" class="btn btn-primary">Restore</a>
+                        <a asp-action="hardDelete" asp-controller="deletedspecialteam" asp-route-id="@teamMember.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            @if (Model.BeforePage)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-route-page="@(Model.ActivePage-1)">Previous</a>
+                </li>
+            }
+            @for (int i = 1; i <= Model.TotalPageCount; i++)
+            {
+
+                <li class="page-item @(Model.ActivePage==i?"active":"")"><a class="page-link" asp-route-page="@i">@i</a></li>
+            }
+            @if (Model.AfterPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-route-page="@(Model.ActivePage+1)">Next</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>

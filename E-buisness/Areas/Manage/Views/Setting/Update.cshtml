@@ -1,0 +1,14 @@
+﻿@model Settings
+
+<div class="container">
+    <h2>Special Team/Update</h2>
+    <form method="post">
+        
+        <div class="mb-3">
+            <label asp-for="Value" class="form-label">Value</label>
+            <input asp-for="Value" class="form-control" placeholder="Value">
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a asp-action="index" asp-controller="setting" class="btn btn-dark">Cancel</a>
+    </form>
+</div>
